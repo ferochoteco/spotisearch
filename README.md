@@ -1,14 +1,4 @@
-# React Bootcamp 2017 - Spotify Client
-
-## Set up
-
-1. Hacerse un fork.
-2. Clonarselo.
-3. En la consola:
-    * Ir a la carpeta del proyecto nuevo: `cd React-Final-Project`.
-    * Ejecutar el comando `npm install` para instalar las dependencias.
-    * Ejecutar el comando `npm start` para iniciar la aplicación.
-    * Enjoy!
+# React Bootcamp - Spotify Client
 
 ## Introducción
 

@@ -1,0 +1,10 @@
+.Header {
+  background-color: rgb(100, 100, 100);
+  color: white;
+  padding: 12px;
+  text-align: center;
+}
+
+.Logo, .Logo img {
+  height: 40px;
+}
