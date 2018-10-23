@@ -1,7 +1,7 @@
 // Dependencies
 import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 // Assets
 import logo from './images/spotify-logo.png';
@@ -14,12 +14,14 @@ class Header extends Component {
   // };
 
   render() {
-    const { title, items } = this.props;
+    // const { title, items } = this.props;
 
     return (
       <div className="Header">
         <div className="Logo">
-          <img src={logo} alt="logo" />
+          <Link to="/">
+            <img src={logo} alt="logo" />
+          </Link>
         </div>
       </div>
     );

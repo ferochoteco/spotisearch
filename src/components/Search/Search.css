@@ -1,0 +1,16 @@
+.Search button {
+    background-color: transparent;
+    border: none;
+    margin-left: 12px;
+    font-size: 17px;
+}
+a {
+    color: rgb(163, 205, 62);
+}
+a:hover {
+    color: rgb(129, 187, 85);
+    text-decoration: none;
+}
+input {
+    max-width: 300px
+}
