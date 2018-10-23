@@ -13,8 +13,12 @@ class Song extends Component {
 
     render() {
         return (
-            <div className="Song">
-                <h5>Song</h5>
+            <div className="col-md-6">
+                <p className="col-md-3">{this.props.songName}</p>
+                <audio className="col-md-9" controls>
+                    <source src={this.props.previewUrl} type="audio/mpeg" />
+                    Your browser does not support the audio element.
+                </audio>
             </div>
         );
     }

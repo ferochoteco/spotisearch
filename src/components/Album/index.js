@@ -1,5 +1,6 @@
 // Dependencies
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 // Assets
 import './Album.css';
@@ -8,14 +9,14 @@ class Album extends Component {
 
     constructor (props) {
         super(props)
-        this.state = {};
+        this.state = {
+            routeTo: "/albums/" + this.props.id
+        };
     }
 
     render() {
         return (
-            <div className="Album">
-                <h5>Album</h5>
-            </div>
+            <p><Link to={this.state.routeTo}>{this.props.albumName}</Link></p>
         );
     }
 }

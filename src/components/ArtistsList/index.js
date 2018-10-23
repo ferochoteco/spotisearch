@@ -1,5 +1,6 @@
 // Dependencies
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 // Assets
 import './Artists.css';
@@ -11,7 +12,7 @@ import Search from '../Search';
 // Config 
 import config from '../../config';
 
-class Artists extends Component {
+class ArtistsList extends Component {
 
     constructor (props) {
         super(props)
@@ -44,15 +45,17 @@ class Artists extends Component {
         }
     }
 
-    renderBooksList(artists) {
+    renderArtistsList(artists) {
         return (
           <div>
-            <h1>Artists</h1>
             {
                 artists.map((artist, key) => {
+                    const routeTo = "/artists/" + artist.id;
                     return (
-                        <Artist key={key} id={artist.id} artistName={artist.name} />
-                    )
+                        <p key={key} className="col-md-6">
+                            <Link to={routeTo}>{artist.name}</Link>
+                        </p>
+                    );
                 })
             }
           </div>
@@ -61,16 +64,15 @@ class Artists extends Component {
     
 
     render() {
-        
-        let show = this.renderBooksList(this.state.artists);
-
+        const showArtists = this.renderArtistsList(this.state.artists);
         return (
             <section className="Artists">
+                <h3>Artists</h3>
                 <Search currentSearch={this.props.match.params.artist} />
-                {show}
+                {showArtists}
             </section>
         );
     }
 }
 
-export default Artists;
+export default ArtistsList;

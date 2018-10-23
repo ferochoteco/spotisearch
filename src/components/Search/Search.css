@@ -1,16 +1,29 @@
+.Search {
+    margin-top: 24px;
+    margin-bottom: 24px;
+}
 .Search button {
     background-color: transparent;
     border: none;
     margin-left: 12px;
     font-size: 17px;
 }
-a {
+.Search p {
+    font-size: 13px;
+    margin-bottom: 6px;
+    padding-top: 12px;
+}
+.Search a {
     color: rgb(163, 205, 62);
 }
-a:hover {
+.Search a:hover {
     color: rgb(129, 187, 85);
     text-decoration: none;
 }
-input {
-    max-width: 300px
+.Search input {
+    width: 650px;
+    border-radius: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+    height: 30px;
 }

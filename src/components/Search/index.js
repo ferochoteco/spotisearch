@@ -19,22 +19,21 @@ class Search extends Component {
     handleOnChange(e) {
         this.setState({
             inputValue: e.target.value,
-            routeTo: "/artists/" + e.target.value
+            routeTo: "/search/" + e.target.value
         })
     }
 
-    componentWillMount() {
+    currentSearch() {
         if (this.props.currentSearch) {
-            this.setState({
-                inputValue: this.props.currentSearch
-            });
+            return <p><b>You are currently searching: </b>"{this.props.currentSearch}"</p>
         }
     }
 
     render() {
         return (
             <div className="Search">
-                <p>You are currently searching: "{this.state.inputValue}"</p>
+                <h5>Search your favourite songs over Spotify, just enter an artist's name in the following search box and enjoy!</h5>
+                {this.currentSearch()}
                 <input type="search" placeholder="Type the name of your favorite artist" onChange={this.handleOnChange} />
                 <button><Link to={this.state.routeTo}><b>Go!</b></Link></button>
             </div>

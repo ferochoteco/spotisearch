@@ -7,6 +7,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import AppRoutes from './routes';
 
 // Assets
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 
 render(

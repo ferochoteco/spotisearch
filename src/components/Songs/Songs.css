@@ -1,5 +1,4 @@
-.Albums p a {
-    text-decoration: none;
+.Songs p {
     color: #0b004c;
     font-weight: bold;
 }

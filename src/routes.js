@@ -7,14 +7,18 @@ import App from './components/App';
 import Home from './components/Home';
 import About from './components/About';
 import Albums from './components/Albums';
-import Artists from './components/Artists';
+import ArtistsList from './components/ArtistsList';
+import Songs from './components/Songs';
+
+import Artist from './components/Artist';
 
 const AppRoutes = () =>
   <App>
     <Switch>
       <Route exact path="/about" component={About} />
-      <Route exact path="/albums/:artist" component={Albums} />
-      <Route exact path="/artists/:artist" component={Artists} />
+      <Route exact path="/albums/:album" component={Songs} />
+      <Route exact path="/artists/:artist" component={Artist} />
+      <Route exact path="/search/:artist" component={ArtistsList} />
       <Route exact path="/" component={Home} />
     </Switch>
   </App>;

@@ -25,7 +25,7 @@ class App extends Component {
           items={items}
         />
         <Content body={children} />
-        <Footer />
+        {/* <Footer /> */}
       </div>
     );
   }

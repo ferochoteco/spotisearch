@@ -2,49 +2,49 @@
 import React, { Component } from 'react';
 
 // Assets
-import './Albums.css';
+import './Songs.css';
 
 // Components
-import Album from '../Album';
+import Song from '../Song';
 
 // Config 
 import config from '../../config';
 
-class Albums extends Component {
+class Songs extends Component {
 
     constructor (props) {
         super(props)
         this.state = {
-            albums: []
+            songs: []
         };
     }
 
-    fetchData(artist) {
-        let endpoint = config.api.url + 'artists/' + artist + '/albums?include_groups=album,single';
+    fetchData(album) {
+        let endpoint = config.api.url + 'albums/' + album + '/tracks';
         let options = config.api.options;
         fetch(endpoint, options)
             .then(response => response.json())
             .then(json => {
-                const albums = json.items;
+                const songs = json.items;
                 this.setState({
-                    albums
+                    songs
                 });
-                console.log(this.state.albums);
+                console.log(this.state.songs);
             })
             .catch(error => console.log(`Fetch: ${endpoint} ${error} failed`));
     }
 
     componentWillMount() {
-        this.fetchData(this.props.match.params.artist);
+        this.fetchData(this.props.match.params.album);
     }
 
-    renderBooksList(albums) {
+    renderSongsList(songs) {
         return (
             <div>
                 {
-                    albums.map((album, key) => {
+                    songs.map((song, key) => {
                         return (
-                            <Album key={key} id={album.id} albumName={album.name} />
+                            <Song key={key} id={song.id} previewUrl={song.preview_url} songName={song.name} />
                         )
                     })
                 }
@@ -53,15 +53,15 @@ class Albums extends Component {
     }
 
     render() {
-        let show = this.renderBooksList(this.state.albums);
+        let show = this.renderSongsList(this.state.songs);
 
         return (
-            <section className="Albums">
-                <h3>Albums</h3>
+            <div className="Songs">
+                <h3>Tracks</h3>
                 {show}
-            </section>
+            </div>
         );
     }
 }
 
-export default Albums;
+export default Songs;
