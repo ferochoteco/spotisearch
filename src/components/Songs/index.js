@@ -29,7 +29,6 @@ class Songs extends Component {
                 this.setState({
                     songs
                 });
-                console.log(this.state.songs);
             })
             .catch(error => console.log(`Fetch: ${endpoint} ${error} failed`));
     }
@@ -40,25 +39,34 @@ class Songs extends Component {
 
     renderSongsList(songs) {
         return (
-            <div>
+            <table class="table table-hover table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">CD 1</th>
+                    </tr>
+                </thead>
+                <tbody>
                 {
                     songs.map((song, key) => {
                         return (
-                            <Song key={key} id={song.id} previewUrl={song.preview_url} songName={song.name} />
+                            <tr>
+                                <td>{song.name}<span data-toggle="tooltip" title="Hooray!" class="glyphicon glyphicon-star-empty pull-right" aria-hidden="true" /></td>
+                            </tr>
+                            // <Song key={key} id={song.id} previewUrl={song.preview_url} songName={song.name} />
                         )
                     })
                 }
-            </div>
+                </tbody>
+            </table>
         );
     }
 
     render() {
-        let show = this.renderSongsList(this.state.songs);
+        let showTracks = this.renderSongsList(this.state.songs);
 
         return (
             <div className="Songs">
-                <h3>Tracks</h3>
-                {show}
+                {showTracks}
             </div>
         );
     }

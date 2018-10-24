@@ -14,10 +14,10 @@
     padding-top: 12px;
 }
 .Search a {
-    color: rgb(163, 205, 62);
+    color: #0b004c;
 }
 .Search a:hover {
-    color: rgb(129, 187, 85);
+    color: #2000d4;
     text-decoration: none;
 }
 .Search input {

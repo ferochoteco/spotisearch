@@ -1,13 +1,14 @@
 // Dependencies
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 
 // Assets
 import './Artists.css';
 
 // Components
 import Artist from '../Artist';
+import Card from '../Card';
 import Search from '../Search';
+import Separator from '../Separator';
 
 // Config 
 import config from '../../config';
@@ -45,22 +46,33 @@ class ArtistsList extends Component {
         }
     }
 
+    imgUrl(images = []) {
+        if (images.length == 0) {
+            return "http://www.prakashgold.com/Images/noimg.jpg";
+        }
+        else return images[2].url;
+    }
+
     renderArtistsList(artists) {
         return (
-          <div>
-            {
-                artists.map((artist, key) => {
-                    const routeTo = "/artists/" + artist.id;
-                    return (
-                        <p key={key} className="col-md-6">
-                            <Link to={routeTo}>{artist.name}</Link>
-                        </p>
-                    );
-                })
-            }
-          </div>
+            <div className="CardsContainer">
+                {
+                    artists.map((artist, key) => {
+                        const routeTo = "/artists/" + artist.id;
+                        return (
+                            <Card key={key}
+                                    id={key}
+                                    name={artist.name}
+                                    imgUrl={this.imgUrl(artist.images)}
+                                    imgAlt="img alt text"
+                                    routeUrl={routeTo}
+                            />
+                        );
+                    })
+                }
+            </div>
         );
-      }
+    }
     
 
     render() {
@@ -69,6 +81,7 @@ class ArtistsList extends Component {
             <section className="Artists">
                 <h3>Artists</h3>
                 <Search currentSearch={this.props.match.params.artist} />
+                <Separator />
                 {showArtists}
             </section>
         );

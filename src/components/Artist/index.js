@@ -1,9 +1,12 @@
 // Dependencies
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 
 // Assets
 import './Artist.css';
+
+// Components
+import Card from '../Card';
+import Separator from '../Separator';
 
 // Config 
 import config from '../../config';
@@ -27,7 +30,6 @@ class Artist extends Component {
                 this.setState({
                     albums
                 });
-                console.log(this.state.albums);
             })
             .catch(error => console.log(`Fetch: ${endpoint} ${error} failed`));
     }
@@ -36,14 +38,28 @@ class Artist extends Component {
         this.fetchData(this.props.match.params.artist);
     }
 
+    imgUrl(images = []) {
+        if (images.length == 0) {
+            return "http://www.prakashgold.com/Images/noimg.jpg";
+        }
+        else 
+            return images[2].url;
+    }
+
     renderAlbumsList(albums) {
         return (
-            <div>
+            <div className="CardsContainer">
                 {
                     albums.map((album, key) => {
                         let routeTo = "/albums/" + album.id;
                         return (
-                            <p key={key} className="col-md-6"><Link to={routeTo}>{album.name}</Link></p>
+                            <Card key={key}
+                                    id={key}
+                                    name={album.name}
+                                    imgUrl={this.imgUrl(album.images)}
+                                    imgAlt="img alt text"
+                                    routeUrl={routeTo}
+                            />
                         )
                     })
                 }
@@ -52,15 +68,17 @@ class Artist extends Component {
     }
 
     render() {
-        let showAlbums = this.renderAlbumsList(this.state.albums);
+        const showAlbums = this.renderAlbumsList(this.state.albums);
+        const showArtistInfo = "";
 
         return (
-            <section className="Albums">
-                <h3>Albums</h3>
-                <div>
-                {showAlbums}
-                </div>
-            </section>
+            <div>
+                {showArtistInfo}
+                <Separator />
+                <section className="Albums">
+                    {showAlbums}
+                </section>
+            </div>
         );
     }
 }
