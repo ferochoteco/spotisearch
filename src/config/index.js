@@ -1,4 +1,4 @@
-const ACCESS_TOKEN = 'BQC1SLqMQ_7dpniVaTaJ81CamVNRggOU57IDbz7RDfPq7uUlrXXt7OMtqBjapOweMqXp1LY4sJV9_nC86Nyl7i3xQM_evuQl4jqlh7DyTRFP2ERkH2HKvNufoD0ioJblUpw-h7EDCyfpn-Aobv4';
+const ACCESS_TOKEN = 'BQBBF8K0DwGF38TXhWxx9aaUeXlKeRvr3yxR9_SBQpeMfd5lokKiide3TF2VL0ZndMtvoIMrurLObT18lcikzLPd69ekhgmu4Zcwb2oyJ8u0ZvZwa7MUhEqz80hExJX_z8gGRMcYQZsD7h7Vqzo';
 
 export default {
   api: {

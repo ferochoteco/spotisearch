@@ -7,17 +7,13 @@ import './Songs.css';
 // Components
 import Song from '../Song';
 
+//Redux
+import { connect } from 'react-redux';
+
 // Config 
 import config from '../../config';
 
 class Songs extends Component {
-
-    constructor (props) {
-        super(props)
-        this.state = {
-            songs: []
-        };
-    }
 
     fetchData(album) {
         let endpoint = config.api.url + 'albums/' + album + '/tracks';
@@ -26,9 +22,7 @@ class Songs extends Component {
             .then(response => response.json())
             .then(json => {
                 const songs = json.items;
-                this.setState({
-                    songs
-                });
+                this.props.addSongs(songs);
             })
             .catch(error => console.log(`Fetch: ${endpoint} ${error} failed`));
     }
@@ -39,7 +33,7 @@ class Songs extends Component {
 
     renderSongsList(songs) {
         return (
-            <table class="table table-hover table-striped">
+            <table className="table table-hover table-striped">
                 <thead>
                     <tr>
                         <th scope="col">CD 1</th>
@@ -49,8 +43,8 @@ class Songs extends Component {
                 {
                     songs.map((song, key) => {
                         return (
-                            <tr>
-                                <td>{song.name}<span data-toggle="tooltip" title="Hooray!" class="glyphicon glyphicon-star-empty pull-right" aria-hidden="true" /></td>
+                            <tr key={key}>
+                                <td>{song.name}<span data-toggle="tooltip" title="Hooray!" className="glyphicon glyphicon-star-empty pull-right" aria-hidden="true" /></td>
                             </tr>
                             // <Song key={key} id={song.id} previewUrl={song.preview_url} songName={song.name} />
                         )
@@ -62,7 +56,7 @@ class Songs extends Component {
     }
 
     render() {
-        let showTracks = this.renderSongsList(this.state.songs);
+        let showTracks = this.renderSongsList(this.props.songs);
 
         return (
             <div className="Songs">
@@ -72,4 +66,29 @@ class Songs extends Component {
     }
 }
 
-export default Songs;
+const mapStateToProps = (state) => {
+    console.log(state);
+    return {
+      songs: state.favorites.songs
+    };
+  }
+  
+const mapDispatchToProps = dispatch => {
+    return {
+        addSongs: (songs) => {
+            const action = {
+                type: "FETCH_SONGS",
+                songs
+            }
+            dispatch(action);
+        },
+        addFavoriteSong: (song) => {
+            const action = {
+                type: "ADD_FAV_SONG",
+                song
+            }
+        }
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Songs);
