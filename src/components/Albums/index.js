@@ -7,42 +7,36 @@ import './Albums.css';
 // Components
 import Album from '../Album';
 
+//Redux
+import { connect } from 'react-redux';
+
 // Config 
 import config from '../../config';
 
 class Albums extends Component {
 
-    constructor (props) {
-        super(props)
-        this.state = {
-            albums: []
-        };
-    }
-
     fetchData(artist) {
         let endpoint = config.api.url + 'artists/' + artist + '/albums?include_groups=album,single';
         let options = config.api.options;
+        debugger;
         fetch(endpoint, options)
             .then(response => response.json())
             .then(json => {
                 const albums = json.items;
-                this.setState({
-                    albums
-                });
-                console.log(this.state.albums);
+                this.props.addAlbums(albums);
             })
             .catch(error => console.log(`Fetch: ${endpoint} ${error} failed`));
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.fetchData(this.props.match.params.artist);
     }
 
-    renderBooksList(albums) {
+    renderAlbumsList() {
         return (
             <div>
                 {
-                    albums.map((album, key) => {
+                    this.props.albums.map((album, key) => {
                         return (
                             <Album key={key} id={album.id} albumName={album.name} />
                         )
@@ -53,8 +47,8 @@ class Albums extends Component {
     }
 
     render() {
-        let show = this.renderBooksList(this.state.albums);
-
+        let show = this.renderAlbumsList();
+        debugger;
         return (
             <section className="Albums">
                 <h3>Albums</h3>
@@ -64,4 +58,22 @@ class Albums extends Component {
     }
 }
 
-export default Albums;
+const mapStateToProps = (state) => {
+    return {
+      albums: state.favorites.albums
+    };
+  }
+  
+const mapDispatchToProps = dispatch => {
+    return {
+        addAlbums: (albums) => {
+            const action = {
+                type: "FETCH_ALBUMS",
+                albums
+            };
+            dispatch(action);
+        }
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Albums);

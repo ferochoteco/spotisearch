@@ -1,0 +1,11 @@
+.Songs .col-md-6 {
+    padding-bottom: 12px;
+}
+.glyphicon-star {
+    color: goldenrod;
+    cursor: pointer;
+}
+.glyphicon-star-empty {
+    color: goldenrod;
+    cursor: pointer;
+}

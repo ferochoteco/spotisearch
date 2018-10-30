@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import './Artists.css';
 
 // Components
-import Artist from '../Artist';
+// import Artist from '../Artist';
 import Card from '../Card';
 import Search from '../Search';
 import Separator from '../Separator';
@@ -47,7 +47,7 @@ class ArtistsList extends Component {
     }
 
     imgUrl(images = []) {
-        if (images.length == 0) {
+        if (images.length === 0) {
             return "http://www.prakashgold.com/Images/noimg.jpg";
         }
         else return images[2].url;
