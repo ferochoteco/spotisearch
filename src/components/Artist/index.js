@@ -6,7 +6,9 @@ import './Artist.css';
 
 // Components
 import Card from '../Card';
+import CardBig from '../CardBig';
 import Separator from '../Separator';
+import Breadcrumbs from '../Breadcrumbs';
 
 //Redux
 import { connect } from 'react-redux';
@@ -28,8 +30,18 @@ class Artist extends Component {
             .catch(error => console.log(`Fetch: ${endpoint} ${error} failed`));
     }
 
-    componentWillMount() {
+    getArtistData() {
+        return this.props.artists.filter(artist => artist.id === this.props.match.params.artist)[0];
+    }
+
+    componentDidMount() {
         this.fetchData(this.props.match.params.artist);
+        let item = {
+            url: this.props.match.url,
+            name: this.getArtistData().name,
+            type: "artist"
+        }
+        this.props.updateBreadcrumbsState(item);
     }
 
     imgUrl(images = []) {
@@ -63,11 +75,15 @@ class Artist extends Component {
 
     render() {
         const showAlbums = this.renderAlbumsList();
-        const showArtistInfo = "";
-
+        const artistData = this.getArtistData();
         return (
             <div>
-                {showArtistInfo}
+                <CardBig type="artist"
+                            genre={artistData.genres[0]} 
+                            artistName={artistData.name} 
+                            imgUrl={artistData.images ? artistData.images[2].url : "http://www.prakashgold.com/Images/noimg.jpg"} 
+                            imgAlt="img alt text" />
+                <Breadcrumbs />
                 <Separator />
                 <section className="Albums">
                     {showAlbums}
@@ -79,7 +95,8 @@ class Artist extends Component {
 
 const mapStateToProps = (state) => {
     return {
-      albums: state.favorites.albums
+      albums: state.favorites.albums,
+      artists: state.favorites.artists
     };
   }
   
@@ -89,6 +106,13 @@ const mapDispatchToProps = dispatch => {
             const action = {
                 type: "FETCH_ALBUMS",
                 albums
+            };
+            dispatch(action);
+        },
+        updateBreadcrumbsState: (item) => {
+            const action = {
+                type: "UPDATE_BREADCRUMBS",
+                item
             };
             dispatch(action);
         }

@@ -2,9 +2,28 @@
   background-color: rgb(100, 100, 100);
   color: white;
   padding: 12px;
-  text-align: center;
 }
 
 .Logo, .Logo img {
   height: 40px;
+}
+
+.Logo.CenterAlign {
+  text-align: center;
+}
+.SecondaryHeader .Logo, .SecondaryHeader .Search {
+  display: inline-block;
+}
+
+.SecondaryHeader .Search {
+  margin: 0;
+  padding-top: 5px;
+  position: absolute;
+  right: 12px;
+}
+.SecondaryHeader .Search button {
+  display: none;
+}
+.SecondaryHeader .Search input {
+  width: 400px;
 }

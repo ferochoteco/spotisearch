@@ -17,7 +17,14 @@ class Home extends Component {
         super(props)
         this.state = {};
     }
-    
+
+    componentDidMount() {
+        let item = {
+            type: "home"
+        }
+        this.props.updateBreadcrumbsState(item);
+    }
+
     renderFavSongs(songs = []) {
         if (songs.length === 0) {
             return null;
@@ -53,20 +60,17 @@ class Home extends Component {
             <section className="Home">
                 <h5>Welcome to</h5>
                 <h1>Spotisearch</h1>
-                <Search />
-                {this.renderFavSongs(this.props.favSongs)}
+                <Search searchText={true} />
+                <div className="Favorites">
+                    {this.renderFavSongs(this.props.favSongs)}
+                </div>
             </section>
         );
     }
 }
 
-const mapStateToProps = (state) => {
-    return {
-      favSongs: state.favorites.favSongs
-    };
-  }
-  
 const mapDispatchToProps = dispatch => {
+    
     return {
         removeFavSong: (songId) => {
             const action = {
@@ -74,8 +78,15 @@ const mapDispatchToProps = dispatch => {
                 songId
             };
             dispatch(action);
+        },
+        updateBreadcrumbsState: (item) => {
+            const action = {
+                type: "UPDATE_BREADCRUMBS",
+                item
+            };
+            dispatch(action);
         }
     }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(Home);
+export default connect(null,mapDispatchToProps)(Home);

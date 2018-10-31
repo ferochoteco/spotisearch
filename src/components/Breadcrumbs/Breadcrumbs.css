@@ -1,0 +1,13 @@
+.Breadcrumbs {
+    color: #0b004c;
+    font-weight: bold;
+}
+.Breadcrumbs a {
+    cursor: pointer;
+    color: #0b004c;
+}
+.Breadcrumbs span:after {
+    padding-left: 12px;
+    padding-right: 12px;
+    content: '\003e';
+}

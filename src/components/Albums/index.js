@@ -18,7 +18,6 @@ class Albums extends Component {
     fetchData(artist) {
         let endpoint = config.api.url + 'artists/' + artist + '/albums?include_groups=album,single';
         let options = config.api.options;
-        debugger;
         fetch(endpoint, options)
             .then(response => response.json())
             .then(json => {
@@ -48,7 +47,6 @@ class Albums extends Component {
 
     render() {
         let show = this.renderAlbumsList();
-        debugger;
         return (
             <section className="Albums">
                 <h3>Albums</h3>

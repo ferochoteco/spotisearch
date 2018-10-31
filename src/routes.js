@@ -9,7 +9,6 @@ import About from './components/About';
 // import Albums from './components/Albums';
 import ArtistsList from './components/ArtistsList';
 import Songs from './components/Songs';
-
 import Artist from './components/Artist';
 
 const AppRoutes = () =>
