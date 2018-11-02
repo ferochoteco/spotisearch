@@ -45,7 +45,7 @@ class ArtistsList extends Component {
         return (
             <div className="CardsContainer">
                 {
-                    artists ? artists.map((artist, key) => {
+                    artists && artists.map((artist, key) => {
                         return (
                             <Card key={key}
                                     id={key}
@@ -56,7 +56,7 @@ class ArtistsList extends Component {
                             />
                         );
                     })
-                : ''}
+                }
             </div>
         );
     }
