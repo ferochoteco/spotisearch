@@ -7,6 +7,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux'
 import { createStore, compose, applyMiddleware } from 'redux'
 import reducers from './reducers'
+import thunk from "redux-thunk";
 
 // Routes
 import AppRoutes from './routes';
@@ -25,7 +26,7 @@ const localStorageMiddleware = ({getState}) => {
     };
 };
 
-const store = compose(applyMiddleware(localStorageMiddleware))(createStore)(
+const store = compose(applyMiddleware(localStorageMiddleware, thunk))(createStore)(
     reducers,
     localStorage.getItem('applicationState') ? JSON.parse(localStorage.getItem('applicationState')) : ''
 );  

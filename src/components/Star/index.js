@@ -32,7 +32,7 @@ class Star extends Component {
 
 const mapStateToProps = (state) => {
     return {
-      songs: state.favorites.songs,
+      songs: state.fetchData.songs,
       favSongs: state.favorites.favSongs
     };
   }

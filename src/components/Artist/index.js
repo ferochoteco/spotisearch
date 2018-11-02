@@ -44,14 +44,6 @@ class Artist extends Component {
         this.props.updateBreadcrumbsState(item);
     }
 
-    imgUrl(images = []) {
-        if (images.length === 0) {
-            return "http://www.prakashgold.com/Images/noimg.jpg";
-        }
-        else 
-            return images[2].url;
-    }
-
     renderAlbumsList() {
         return (
             <div className="CardsContainer">
@@ -62,7 +54,7 @@ class Artist extends Component {
                             <Card key={key}
                                     id={key}
                                     name={album.name}
-                                    imgUrl={this.imgUrl(album.images)}
+                                    imgUrl={album.images[2] ? album.images[2].url : "http://www.prakashgold.com/Images/noimg.jpg"}
                                     imgAlt="img alt text"
                                     routeUrl={routeTo}
                             />
@@ -82,7 +74,7 @@ class Artist extends Component {
                             genre={artistData.genres[0]} 
                             artistName={artistData.name} 
                             imgUrl={artistData.images ? artistData.images[2].url : "http://www.prakashgold.com/Images/noimg.jpg"} 
-                            imgAlt="img alt text" />
+                            imgAlt="AltText" />
                 <Breadcrumbs />
                 <Separator />
                 <section className="Albums">
@@ -95,12 +87,12 @@ class Artist extends Component {
 
 const mapStateToProps = (state) => {
     return {
-      albums: state.favorites.albums,
-      artists: state.favorites.artists
+      albums: state.fetchData.albums,
+      artists: state.fetchData.artists
     };
   }
   
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
     return {
         addAlbums: (albums) => {
             const action = {

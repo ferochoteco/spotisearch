@@ -39,7 +39,7 @@ class Breadcrumbs extends Component {
 
 const mapStateToProps = (state) => {
     return {
-      breadcrumbs: state.favorites.breadcrumbs
+      breadcrumbs: state.breadcrumbs.breadcrumbs
     };
   }
   

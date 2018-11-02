@@ -6,34 +6,21 @@ import './Artists.css';
 
 // Components
 // import Artist from '../Artist';
+import Breadcrumbs from '../Breadcrumbs';
 import Card from '../Card';
 import Search from '../Search';
 import Separator from '../Separator';
-import Breadcrumbs from '../Breadcrumbs';
 
-//Redux
+//  Redux
 import { connect } from 'react-redux';
 
-// Config 
-import config from '../../config';
+// Actions 
+import { fetchArtists } from './artistsActions';
 
 class ArtistsList extends Component {
 
-    fetchData(artist) {
-        let endpoint = config.api.url + 'search?q=' + artist + '&type=artist&limit=10';
-        let options = config.api.options;
-        fetch(endpoint, options)
-            .then(response => response.json())
-            .then(json => {
-                const artists = json.artists.items;
-                this.props.addArtists(artists);
-            })
-            .catch(error => console.log(`Fetch: ${endpoint} ${error} failed`));
-    }
-
-    componentDidMount() {
-        this.fetchData(this.props.match.params.artist);
-        let item = {
+    updateBreadcrumbs() {
+        const item = {
             url: this.props.match.url,
             name: "Artists",
             type: "search"
@@ -41,43 +28,51 @@ class ArtistsList extends Component {
         this.props.updateBreadcrumbsState(item);
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.match.params !== this.props.match.params) {
-            this.fetchData(nextProps.match.params.artist);
+    componentDidMount() {
+        const { artist } = this.props.match.params;
+        this.props.getArtists(artist);
+        this.updateBreadcrumbs();
+    }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.match.params !== this.props.match.params) {
+            this.props.getArtists(this.props.match.params.artist);
+            this.updateBreadcrumbs();
         }
     }
 
-    imgUrl(images = []) {
-        if (images.length === 0) {
-            return "http://www.prakashgold.com/Images/noimg.jpg";
-        }
-        else return images[2].url;
-    }
-
-    renderArtistsList() {
+    renderArtistsList(artists) {
         return (
             <div className="CardsContainer">
                 {
-                    this.props.artists.map((artist, key) => {
-                        const routeTo = "/artists/" + artist.id;
+                    artists ? artists.map((artist, key) => {
                         return (
                             <Card key={key}
                                     id={key}
                                     name={artist.name}
-                                    imgUrl={this.imgUrl(artist.images)}
+                                    imgUrl={artist.images[2] ? artist.images[2].url : "http://www.prakashgold.com/Images/noimg.jpg"}
                                     imgAlt="img alt text"
-                                    routeUrl={routeTo}
+                                    routeUrl={"/artists/" + artist.id}
                             />
                         );
                     })
-                }
+                : ''}
             </div>
         );
     }
     
-
     render() {
-        const showArtists = this.renderArtistsList();
+        const { artists, error, loading } = this.props;
+        const showArtists = this.renderArtistsList(artists);
+
+        if (error) {
+            return <div>Error! {error.message}</div>;
+        }
+
+        if (loading) {
+            return <div>Loading...</div>;
+        }
+
         return (
             <section className="Artists">
                 <h3>Artists</h3>
@@ -92,27 +87,21 @@ class ArtistsList extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        artists: state.favorites.artists
+        artists: state.artistsReducer.artists
     };
-  }
+}
   
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
     return {
-        addArtists: (artists) => {
-            const action = {
-                type: "FETCH_ARTISTS",
-                artists
-            };
-            dispatch(action);
-        },
-        updateBreadcrumbsState: (item) => {
+        getArtists: artist => dispatch(fetchArtists(artist)),
+        updateBreadcrumbsState: item => {
             const action = {
                 type: "UPDATE_BREADCRUMBS",
                 item
             };
             dispatch(action);
         }
-    }
+    };
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(ArtistsList);

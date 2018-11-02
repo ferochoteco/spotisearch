@@ -5,8 +5,6 @@ import { Route, Switch } from 'react-router-dom';
 // Components
 import App from './components/App';
 import Home from './components/Home';
-import About from './components/About';
-// import Albums from './components/Albums';
 import ArtistsList from './components/ArtistsList';
 import Songs from './components/Songs';
 import Artist from './components/Artist';
@@ -14,7 +12,6 @@ import Artist from './components/Artist';
 const AppRoutes = () =>
   <App>
     <Switch>
-      <Route exact path="/about" component={About} />
       <Route exact path="/albums/:album" component={Songs} />
       <Route exact path="/artists/:artist" component={Artist} />
       <Route exact path="/search/:artist" component={ArtistsList} />

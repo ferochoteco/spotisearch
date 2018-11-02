@@ -115,9 +115,9 @@ class Songs extends Component {
 
 const mapStateToProps = (state) => {
     return {
-      songs: state.favorites.songs,
-      albums: state.favorites.albums,
-      favSongs: state.favorites.favSongs
+      songs: state.fetchData.songs,
+      albums: state.fetchData.albums,
+      favSongs: state.fetchData.favSongs
     };
   }
   

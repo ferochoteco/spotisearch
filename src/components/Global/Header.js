@@ -46,9 +46,8 @@ class Header extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state.favorites.breadcrumbs.length);
   return {
-    breadcrumbs: state.favorites.breadcrumbs
+    breadcrumbs: state.breadcrumbs.breadcrumbs
   };
 }
 
