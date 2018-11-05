@@ -10,13 +10,23 @@ import { connect } from 'react-redux';
 
 class Breadcrumbs extends Component {
 
+    componentDidMount() {
+        const item = {
+            url: this.props.url,
+            name: this.props.name,
+            type: this.props.type
+        }
+        this.props.updateBreadcrumbsState(item);
+    }
+
+
     renderBreadcrumbsLinks() {
-        const linksLen = this.props.breadcrumbs.length;
+        const linksLength = this.props.breadcrumbs.length;
         return (
             <div>
                 {
                     this.props.breadcrumbs.map((link,index) => {
-                        if (linksLen === index + 1) {
+                        if (linksLength === index + 1) {
                             return <Link key={index} to={link.url}>{link.name}</Link>;
                         } else {
                             return <span key={index}><Link to={link.url}>{link.name}</Link></span>;
@@ -41,10 +51,18 @@ const mapStateToProps = (state) => {
     return {
       breadcrumbs: state.breadcrumbs.breadcrumbs
     };
-  }
-  
-const mapDispatchToProps = () => {
-    return {};
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        updateBreadcrumbsState: (item) => {
+            const action = {
+                type: "UPDATE_BREADCRUMBS",
+                item
+            };
+            dispatch(action);
+        }
+    }
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(Breadcrumbs);

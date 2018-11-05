@@ -1,35 +1,35 @@
 import {
-    FETCH_ARTISTS_BEGIN,
-    FETCH_ARTISTS_SUCCESS,
-    FETCH_ARTISTS_FAILURE
-} from "./artistsActions";
+    FETCH_ALBUMS_BEGIN,
+    FETCH_ALBUMS_SUCCESS,
+    FETCH_ALBUMS_FAILURE
+} from "./albumsActions";
 
 const initialState = {
-    artists: [],
+    albums: [],
     loading: false,
     error: null
 };
 
-export default function artistsReducer(state = initialState,action) {
+export default function albumsReducer(state = initialState,action) {
     switch (action.type) {
-        case FETCH_ARTISTS_BEGIN:
+        case FETCH_ALBUMS_BEGIN:
             return {
                 ...state,
                 loading: true,
                 error: null
             };
-        case FETCH_ARTISTS_SUCCESS:
+        case FETCH_ALBUMS_SUCCESS:
             return {
                 ...state,
                 loading: false,
-                artists: action.payload.artists
+                albums: action.payload.albums
             };
-        case FETCH_ARTISTS_FAILURE:
+        case FETCH_ALBUMS_FAILURE:
             return {
                 ...state,
                 loading: false,
                 error: action.payload.error,
-                artists: []
+                albums: []
             };
         default:
             return state;

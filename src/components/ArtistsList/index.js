@@ -5,11 +5,7 @@ import React, { Component } from 'react';
 import './Artists.css';
 
 // Components
-// import Artist from '../Artist';
-import Breadcrumbs from '../Breadcrumbs';
 import Card from '../Card';
-import Search from '../Search';
-import Separator from '../Separator';
 
 //  Redux
 import { connect } from 'react-redux';
@@ -19,25 +15,14 @@ import { fetchArtists } from './artistsActions';
 
 class ArtistsList extends Component {
 
-    updateBreadcrumbs() {
-        const item = {
-            url: this.props.match.url,
-            name: "Artists",
-            type: "search"
-        }
-        this.props.updateBreadcrumbsState(item);
-    }
-
     componentDidMount() {
         const { artist } = this.props.match.params;
         this.props.getArtists(artist);
-        this.updateBreadcrumbs();
     }
 
     componentDidUpdate(prevProps) {
         if (prevProps.match.params !== this.props.match.params) {
             this.props.getArtists(this.props.match.params.artist);
-            this.updateBreadcrumbs();
         }
     }
 
@@ -75,10 +60,6 @@ class ArtistsList extends Component {
 
         return (
             <section className="Artists">
-                <h3>Artists</h3>
-                <Search currentSearch={this.props.match.params.artist} />
-                <Breadcrumbs />
-                <Separator />
                 {showArtists}
             </section>
         );
@@ -93,14 +74,7 @@ const mapStateToProps = (state) => {
   
 const mapDispatchToProps = (dispatch) => {
     return {
-        getArtists: artist => dispatch(fetchArtists(artist)),
-        updateBreadcrumbsState: item => {
-            const action = {
-                type: "UPDATE_BREADCRUMBS",
-                item
-            };
-            dispatch(action);
-        }
+        getArtists: artist => dispatch(fetchArtists(artist))
     };
 }
 

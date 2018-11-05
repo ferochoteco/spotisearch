@@ -32,13 +32,9 @@ class Star extends Component {
 
 const mapStateToProps = (state) => {
     return {
-      songs: state.fetchData.songs,
+      songs: state.songsReducer.songs,
       favSongs: state.favorites.favSongs
     };
-  }
-  
-const mapDispatchToProps = () => {
-    return {}
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(Star);
+export default connect(mapStateToProps)(Star);

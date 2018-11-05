@@ -13,29 +13,18 @@ import CardBig from '../CardBig';
 //Redux
 import { connect } from 'react-redux';
 
-// Config 
-import config from '../../config';
+// Actions 
+import { fetchSongs } from './songsActions';
 
 class Songs extends Component {
-
-    fetchData(album) {
-        let endpoint = config.api.url + 'albums/' + album + '/tracks';
-        let options = config.api.options;
-        fetch(endpoint, options)
-            .then(response => response.json())
-            .then(json => {
-                const songs = json.items;
-                this.props.addSongs(songs);
-            })
-            .catch(error => console.log(`Fetch: ${endpoint} ${error} failed`));
-    }
 
     getAlbumData() {
         return this.props.albums.filter(album => album.id === this.props.match.params.album)[0];
     }
 
     componentDidMount() {
-        this.fetchData(this.props.match.params.album);
+        const { album } = this.props.match.params;
+        this.props.getSongs(album);
         let item = {
             url: this.props.match.url,
             name: this.getAlbumData().name,
@@ -52,7 +41,7 @@ class Songs extends Component {
         const album = this.props.albums.filter(album => album.id === this.props.match.params.album);
         return {
             albumName: album[0].name,
-            albumImgUrl: album[0].images ? album[0].images[2].url : "http://www.prakashgold.com/Images/noimg.jpg",
+            albumImgUrl: album[0].images[2] ? album[0].images[2].url : "http://www.prakashgold.com/Images/noimg.jpg",
             artistName: album[0].artists[0].name
         }
     }
@@ -115,21 +104,15 @@ class Songs extends Component {
 
 const mapStateToProps = (state) => {
     return {
-      songs: state.fetchData.songs,
-      albums: state.fetchData.albums,
-      favSongs: state.fetchData.favSongs
+      songs: state.songsReducer.songs,
+      albums: state.albumsReducer.albums,
+      favSongs: state.favorites.favSongs
     };
   }
   
 const mapDispatchToProps = dispatch => {
     return {
-        addSongs: (songs) => {
-            const action = {
-                type: "FETCH_SONGS",
-                songs
-            };
-            dispatch(action);
-        },
+        getSongs: albumId => dispatch(fetchSongs(albumId)),
         addFavoriteSong: (song, data) => {
             const action = {
                 type: "ADD_FAV_SONG",

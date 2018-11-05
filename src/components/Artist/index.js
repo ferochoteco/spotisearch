@@ -13,29 +13,18 @@ import Breadcrumbs from '../Breadcrumbs';
 //Redux
 import { connect } from 'react-redux';
 
-// Config 
-import config from '../../config';
+// Actions 
+import { fetchAlbums } from './albumsActions';
 
 class Artist extends Component {
-
-    fetchData(artist) {
-        let endpoint = config.api.url + 'artists/' + artist + '/albums?include_groups=album,single';
-        let options = config.api.options;
-        fetch(endpoint, options)
-            .then(response => response.json())
-            .then(json => {
-                const albums = json.items;
-                this.props.addAlbums(albums);
-            })
-            .catch(error => console.log(`Fetch: ${endpoint} ${error} failed`));
-    }
 
     getArtistData() {
         return this.props.artists.filter(artist => artist.id === this.props.match.params.artist)[0];
     }
 
     componentDidMount() {
-        this.fetchData(this.props.match.params.artist);
+        const { artist } = this.props.match.params;
+        this.props.getAlbums(artist);
         let item = {
             url: this.props.match.url,
             name: this.getArtistData().name,
@@ -73,7 +62,7 @@ class Artist extends Component {
                 <CardBig type="artist"
                             genre={artistData.genres[0]} 
                             artistName={artistData.name} 
-                            imgUrl={artistData.images ? artistData.images[2].url : "http://www.prakashgold.com/Images/noimg.jpg"} 
+                            imgUrl={artistData.images[2] ? artistData.images[2].url : "http://www.prakashgold.com/Images/noimg.jpg"} 
                             imgAlt="AltText" />
                 <Breadcrumbs />
                 <Separator />
@@ -87,20 +76,14 @@ class Artist extends Component {
 
 const mapStateToProps = (state) => {
     return {
-      albums: state.fetchData.albums,
-      artists: state.fetchData.artists
+      albums: state.albumsReducer.albums,
+      artists: state.artistsReducer.artists
     };
   }
   
 const mapDispatchToProps = (dispatch) => {
     return {
-        addAlbums: (albums) => {
-            const action = {
-                type: "FETCH_ALBUMS",
-                albums
-            };
-            dispatch(action);
-        },
+        getAlbums: artistId => dispatch(fetchAlbums(artistId)),
         updateBreadcrumbsState: (item) => {
             const action = {
                 type: "UPDATE_BREADCRUMBS",

@@ -4,17 +4,17 @@ import { Route, Switch } from 'react-router-dom';
 
 // Components
 import App from './components/App';
+import Artist from './views/Artist/Artist';
 import Home from './components/Home';
-import ArtistsList from './components/ArtistsList';
+import SearchResults from './views/SearchResults/SearchResults';
 import Songs from './components/Songs';
-import Artist from './components/Artist';
 
 const AppRoutes = () =>
   <App>
     <Switch>
       <Route exact path="/albums/:album" component={Songs} />
       <Route exact path="/artists/:artist" component={Artist} />
-      <Route exact path="/search/:artist" component={ArtistsList} />
+      <Route exact path="/search/:artist" component={SearchResults} />
       <Route exact path="/" component={Home} />
     </Switch>
   </App>;

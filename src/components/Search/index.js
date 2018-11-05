@@ -39,7 +39,7 @@ class Search extends Component {
     render() {
         return (
             <div className="Search">
-                {this.props.searchText ? <h5>Search your favourite songs over Spotify, just enter an artist's name in the following search box and enjoy!</h5> : ''}
+                {this.props.searchText && <h5>Search your favourite songs over Spotify, just enter an artist's name in the following search box and enjoy!</h5>}
                 {this.currentSearch()}
                 <input type="search" placeholder="Type the name of your favorite artist" 
                     onChange={this.handleOnChange} 
