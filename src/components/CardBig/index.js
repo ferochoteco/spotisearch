@@ -15,18 +15,20 @@ class CardBig extends Component {
         return (
             <div className="CardBig">
                 <img src={this.props.imgUrl} alt={this.props.imgAlt} />
-                {this.props.type === "album" ? 
-                    <div className="PrimaryContent">
-                        <h3><b>{this.props.albumName}</b></h3>
-                        <h5><b>{this.props.artistName}</b> - {this.props.year}</h5>
-                    </div>
-                : ''}
-                {this.props.type === "artist" ? 
-                    <div className="PrimaryContent">
-                        <h3><b>{this.props.artistName}</b></h3>
-                        <h5><b>{this.props.genre}</b></h5>
-                    </div>
-                : ''}
+                {
+                    this.props.type === "album" && 
+                        <div className="PrimaryContent">
+                            <h3><b>{this.props.albumName}</b></h3>
+                            <h5><b>{this.props.artistName}</b> - {this.props.year}</h5>
+                        </div>
+                }
+                {
+                    this.props.type === "artist" && 
+                        <div className="PrimaryContent">
+                            <h3><b>{this.props.artistName}</b></h3>
+                            <h5><b>{this.props.genre}</b></h5>
+                        </div>
+                }
             </div>
         );
     }

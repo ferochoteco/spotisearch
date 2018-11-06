@@ -8,11 +8,6 @@ import Star from '../Star';
 
 class Card extends Component {
 
-    constructor (props) {
-        super(props)
-        this.state = {};
-    }
-
     renderFavData() {
         let { artistName, albumName, showStar, id, onClick } = this.props;
         if (artistName && albumName && showStar && id && onClick) {

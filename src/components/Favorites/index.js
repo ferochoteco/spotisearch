@@ -24,7 +24,7 @@ class Favorites extends Component {
                                         id={song.id}
                                         name={song.name}
                                         imgUrl={song.albumUrl}
-                                        imgAlt="img alt text"
+                                        imgAlt="AltTxt"
                                         artistName={song.artist}
                                         albumName={song.album}
                                         showStar={true}
@@ -42,10 +42,7 @@ class Favorites extends Component {
         return (
             <section className="Favorites">
                 {
-                    this.props.favSongs.length > 0 ? 
-                        this.renderFavSongs(this.props.favSongs)
-                    : 
-                        ''
+                    this.props.favSongs.length > 0 && this.renderFavSongs(this.props.favSongs)
                 }
             </section>
         );

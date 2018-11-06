@@ -1,14 +1,15 @@
-.Songs p {
+.SongsList p {
     color: #0b004c;
     font-weight: bold;
 }
 
-.Songs .table-hover>tbody>tr:nth-of-type(even):hover {
-    background-color: #d6d6d6;
+.SongsList .glyphicon:hover {
+    cursor: pointer;
 }
 
-.Songs .glyphicon:hover {
-    cursor: pointer;
+
+.table-hover>tbody>tr:nth-of-type(even):hover {
+    background-color: #d6d6d6;
 }
 
 .table-striped>tbody>tr {

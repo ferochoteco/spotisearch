@@ -20,7 +20,6 @@ class Artist extends Component {
         const { genres, name, images } = this.getArtistData();
         return (
             <div>
-                {/* <Artist /> */}
                 <CardBig type="artist"
                             genre={genres[0]} 
                             artistName={name} 

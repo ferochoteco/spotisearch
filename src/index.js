@@ -4,9 +4,9 @@ import { render } from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 // Redux
-import { Provider } from 'react-redux'
-import { createStore, compose, applyMiddleware } from 'redux'
-import reducers from './reducers'
+import { Provider } from 'react-redux';
+import { createStore, compose, applyMiddleware } from 'redux';
+import reducers from './reducers';
 import thunk from "redux-thunk";
 
 // Routes

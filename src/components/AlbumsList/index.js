@@ -25,14 +25,13 @@ class AlbumsList extends Component {
             <div className="CardsContainer">
                 {
                     this.props.albums.map((album, key) => {
-                        let routeTo = "/albums/" + album.id;
                         return (
                             <Card key={key}
                                     id={key}
                                     name={album.name}
                                     imgUrl={album.images[2] ? album.images[2].url : "http://www.prakashgold.com/Images/noimg.jpg"}
-                                    imgAlt="img alt text"
-                                    routeUrl={routeTo}
+                                    imgAlt="AltTxt"
+                                    routeUrl={"/albums/" + album.id}
                             />
                         )
                     })
